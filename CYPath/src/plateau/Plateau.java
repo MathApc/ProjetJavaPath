@@ -65,16 +65,16 @@ public class Plateau {
 	
 		List<Box> neighbours = new ArrayList<Box>();
 		if(!box.isBarrierTop()){
-			neighbours.add(plateau.getBox(box.getx(), box.gety()-1))
+			neighbours.add(getBox(box.getx(), box.gety()-1))
 		}
 		if(!box.isBarrierBot()){
-			neighbours.add(plateau.getBox(box.getx(), box.gety()+1))
+			neighbours.add(getBox(box.getx(), box.gety()+1))
 		}
 		if(!box.isBarrierLeft()){
-			neighbours.add(plateau.getBox(box.getx()-1, box.gety()))
+			neighbours.add(getBox(box.getx()-1, box.gety()))
 		}
 		if(!box.isBarrierRight()){
-			neighbours.add(plateau.getBox(box.getx()+1, box.gety()))
+			neighbours.add(getBox(box.getx()+1, box.gety()))
 		}
 
 		return neighbours;
