@@ -1,5 +1,8 @@
 package plateau;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Plateau {
 	private Box[][] plateau;
 	private boolean isGameOver;
@@ -58,6 +61,26 @@ public class Plateau {
 		this.numberPlayers = numberPlayers;
 	}
 	
+	public List<Box> Neighbours(Box box){
+	
+		List<Box> neighbours = new ArrayList<Box>();
+		if(!box.isBarrierTop()){
+			neighbours.add(plateau.getBox(box.getx(), box.gety()-1))
+		}
+		if(!box.isBarrierBot()){
+			neighbours.add(plateau.getBox(box.getx(), box.gety()+1))
+		}
+		if(!box.isBarrierLeft()){
+			neighbours.add(plateau.getBox(box.getx()-1, box.gety()))
+		}
+		if(!box.isBarrierRight()){
+			neighbours.add(plateau.getBox(box.getx()+1, box.gety()))
+		}
+
+		return neighbours;
+
+	}
+
 	public void initialise() throws Exception {
 		
 		for(int i=0;i<9;i++)
@@ -131,10 +154,7 @@ public class Plateau {
 		
 	}
 	
-	public static void main(String[] args) throws Exception {
-		Plateau p = new Plateau();
-		p.initialise();
-	}
+	
 }
 	
 
