@@ -59,44 +59,39 @@ public class Plateau {
 	}
 	
 	public void initialise() throws Exception {
-		Box[][] tmp = new Box[9][9];
-		tmp = this.getPlateau();
+		
 		for(int i=0;i<9;i++)
 		{
-			
 			for(int j=0;j<9;j++) {
-				tmp[i][j] = new Box();
-				tmp[i][j].setLeft(false);
-				tmp[i][j].setRight(false);
-				tmp[i][j].setTop(false);
-				tmp[i][j].setBot(false);
+				plateau[i][j] = new Box(i,j);
+				
 				switch(j) {
 				case 0:
-					tmp[i][j].setLeft(true);
+					plateau[i][j].setLeft();
 					break;
 				case 8:
-					tmp[i][j].setRight(true);
+					plateau[i][j].setRight();
+					break;
 				}
 				switch(i) {
 				case 0:
-					tmp[i][j].setTop(true);
+					plateau[i][j].setTop();
 					break;
 				case 8:
-					tmp[i][j].setBot(true);
+					plateau[i][j].setBot();
+					break;
 				}
-				tmp[i][j].setPawn(false);
-				tmp[i][j].setPawn(null);
 			}
 		}
-		tmp[0][4].setPawn(true);
-		tmp[8][4].setPawn(true);
-		tmp[0][4].setPawn(new Pawn(0));
-		tmp[8][4].setPawn(new Pawn(1));
+		plateau[0][4].setPawn(true);
+		plateau[8][4].setPawn(true);
+		plateau[0][4].setPawn(new Pawn(0));
+		plateau[8][4].setPawn(new Pawn(1));
 		if(this.getNumberPlayers()==4) {
-			tmp[4][0].setPawn(true);
-			tmp[4][8].setPawn(true);
-			tmp[4][0].setPawn(new Pawn(2));
-			tmp[4][8].setPawn(new Pawn(3));
+			plateau[4][0].setPawn(true);
+			plateau[4][8].setPawn(true);
+			plateau[4][0].setPawn(new Pawn(2));
+			plateau[4][8].setPawn(new Pawn(3));
 		}
 			
 	}
