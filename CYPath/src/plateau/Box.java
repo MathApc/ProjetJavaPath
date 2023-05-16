@@ -1,53 +1,58 @@
 package plateau;
+import javafx.scene.control.Button;
 
-public class Box {
-	private boolean isPawn;
-	private Pawn pawn;
-	private boolean isBarrierLeft; // defines if the neighbors of the box are accessible or not, if true , that means that there is a barrier							
-	private boolean isBarrierRight;
-	private boolean isBarrierTop;
-	private boolean isBarrierBot;
+public class Box extends Button{
+	private boolean isPawn = false;
+	private Pawn pawn = null;
+	private int x,y;
+	private boolean isBarrierLeft = false; // defines if the neighbors of the box are accessible or not, if true , that means that there is a barrier							
+	private boolean isBarrierRight = false;
+	private boolean isBarrierTop = false;
+	private boolean isBarrierBot = false;
+	
+	public Box(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int getx(){
+		return x;
+	}
+	
+	public int gety(){
+		return y;
+	}
 
 	public boolean isBarrierLeft() {
 		return isBarrierLeft;
 	}
 
-	public void setLeft(boolean left) {
-		this.isBarrierLeft = left;
+	public void setLeft() {
+		this.isBarrierLeft = true;
 	}
 
 	public boolean isBarrierRight() {
 		return isBarrierRight;
 	}
 
-	public void setRight(boolean right) {
-		this.isBarrierRight = right;
+	public void setRight() {
+		this.isBarrierRight = true;
 	}
 
 	public boolean isBarrierTop() {
 		return isBarrierTop;
 	}
 
-	public void setTop(boolean top) {
-		this.isBarrierTop = top;
+	public void setTop() {
+		this.isBarrierTop = true;
 	}
 
 	public boolean isBarrierBot() {
 		return isBarrierBot;
 	}
 
-	public void setBot(boolean bot) {
-		this.isBarrierBot = bot;
-	}
-
-	public Box(boolean isPawn, Pawn pawn) {
-			this.isPawn = false;
-			this.pawn = null;
-
-	}
-
-	public Box() {
-		this(false,null);
+	public void setBot() {
+		this.isBarrierBot = true;
 	}
 	
 	public boolean isPawn() {
