@@ -38,6 +38,7 @@ public class Border extends Button{
 		
 		this.setOnMouseMoved(new EventHandler<MouseEvent>() {
 		      @Override public void handle(MouseEvent event) {
+		    	  
 		        
 		    	  if(pl.canClickBorder()&&!isBarrier()) {
 			    	  double percentage;
@@ -62,8 +63,12 @@ public class Border extends Button{
 			    	  }
 			    	  
 			    	  if(neighbours.size()>0) {
-			    		  changeColor();
-			    		  neighbours.get(whichNeighbour).changeColor();
+			    		  if (doesntBlockWay(neighbours.get(whichNeighbour))) {
+				    		  changeColor();
+				    		  neighbours.get(whichNeighbour).changeColor();
+			    		  }else {
+			    			  originalColor();
+			    		  }
 			    	  }
 			    	  
 		    	  }
@@ -74,19 +79,23 @@ public class Border extends Button{
 		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent event) {
 				if(pl.canClickBorder()&&!isBarrier()) {
-					System.out.println("barrier : " + String.valueOf(x)+","+String.valueOf(y));
 					
 					List<Border> neighbours = Neighbours();
 					if (neighbours.size() > 0) {
 						Border neighbour = neighbours.get(whichNeighbour);
 						
-						neighbour.setBarrier();
-						setBarrier();
+						if(doesntBlockWay(neighbour)) {
 						
-						pl.borderClicked(getX(), getY(), isVertical());
-						pl.borderClicked(neighbour.getX(), neighbour.getY(), neighbour.isVertical());
-						
-						System.out.println(pl.existsWay(pl.getPawn(0)));
+							neighbour.setBarrier();
+							setBarrier();
+							
+							pl.borderClicked(getX(), getY(), isVertical(),true);
+							pl.borderClicked(neighbour.getX(), neighbour.getY(), neighbour.isVertical(),true);
+							
+							pl.setNumberBarriere(pl.getNumberBarriere() + 1);
+							
+							pl.reset();
+						}
 						
 					}
 		    	  }
@@ -105,6 +114,29 @@ public class Border extends Button{
 	      }
 	    });
 			
+	}
+	
+	private boolean doesntBlockWay(Border neighbour) {
+		
+		
+		pl.borderClicked(getX(), getY(), isVertical(),true);
+		pl.borderClicked(neighbour.getX(), neighbour.getY(), neighbour.isVertical(),true);
+		
+		boolean doesntBlockWay = true;
+		
+		for(Pawn p : pl.getPawns()) {
+  		  if(!pl.existsWay(p)) {
+  			  System.out.println(p.getName());
+  			  doesntBlockWay = false;
+  			  break;
+  		  }
+  	  }
+		
+		pl.borderClicked(getX(), getY(), isVertical(),false);
+		pl.borderClicked(neighbour.getX(), neighbour.getY(), neighbour.isVertical(),false);
+		
+		
+		return doesntBlockWay;
 	}
 	
 	public int getX() {
@@ -131,6 +163,7 @@ public class Border extends Button{
 		isBarrier = true;
 		changeColor();
 	}
+	
 	
 	public void changeColor() {
 		this.setStyle("-fx-background-color: black;");

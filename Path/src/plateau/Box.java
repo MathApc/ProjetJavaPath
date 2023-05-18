@@ -4,7 +4,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class Box extends Button{
+	
+	static String[] Colors = {"red", "blue", "green", "yellow"};
+	
 	private boolean isPawn = false;
+	private Plateau pl;
 	private Pawn pawn = null;
 	private int x,y;
 	private boolean isBarrierLeft = false; // defines if the neighbors of the box are accessible or not, if true , that means that there is a barrier							
@@ -12,9 +16,12 @@ public class Box extends Button{
 	private boolean isBarrierTop = false;
 	private boolean isBarrierBot = false;
 	
-	public Box(int x, int y) {
+	private boolean canClick = false;
+	
+	public Box(int x, int y, Plateau pl) {
 		this.x = x;
 		this.y = y;
+		this.pl = pl;
 		
 		this.setOnAction(new BtnHandler());
 		this.setStyle("-fx-background-color: gray;");
@@ -25,10 +32,30 @@ public class Box extends Button{
 	class BtnHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			System.out.println(String.valueOf(x)+","+String.valueOf(y));
+			
+			if(getCanClick() && pl.canClickBox()) {
+				System.out.println(String.valueOf(x)+","+String.valueOf(y));
+				Pawn pawn = pl.getPawn(pl.getTurn());
+				setPawn(true);
+				setPawn(pawn);
+				pawn.getBox().setPawn(false);
+				pawn.getBox().setPawn(null);
+				pawn.setBox(getThisBox());
+				
+				if(pawn.getTargetRow() == getx() || pawn.getTargetColumn() == gety()) { //check if arrived to the target row or column
+					pl.setGameOver(true);
+					pl.setWinner(pawn);
+				}
+				
+				pl.reset();
+			}
 			
 		}
 		
+	}
+	
+	public Box getThisBox() {
+		return this;
 	}
 	
 	public int getx(){
@@ -43,32 +70,32 @@ public class Box extends Button{
 		return isBarrierLeft;
 	}
 
-	public void setLeft() {
-		this.isBarrierLeft = true;
+	public void setLeft(Boolean isBarrier) {
+		this.isBarrierLeft = isBarrier;
 	}
 
 	public boolean isBarrierRight() {
 		return isBarrierRight;
 	}
 
-	public void setRight() {
-		this.isBarrierRight = true;
+	public void setRight(Boolean isBarrier) {
+		this.isBarrierRight = isBarrier;
 	}
 
 	public boolean isBarrierTop() {
 		return isBarrierTop;
 	}
 
-	public void setTop() {
-		this.isBarrierTop = true;
+	public void setTop(Boolean isBarrier) {
+		this.isBarrierTop = isBarrier;
 	}
 
 	public boolean isBarrierBot() {
 		return isBarrierBot;
 	}
 
-	public void setBot() {
-		this.isBarrierBot = true;
+	public void setBot(Boolean isBarrier) {
+		this.isBarrierBot = isBarrier;
 	}
 	
 	public boolean isPawn() {
@@ -85,6 +112,20 @@ public class Box extends Button{
 
 	public void setPawn(Pawn pawn) {
 		this.pawn = pawn;
+	}
+	
+	public boolean getCanClick() {
+		return canClick;
+	}
+	
+	public void setCanClick(boolean canClick) {
+		this.canClick = canClick;
+		if(canClick) {
+			this.setStyle("-fx-background-color: "+Colors[pl.getTurn()]+";");
+		}else {
+			this.setStyle("-fx-background-color: gray;");
+		}
+		
 	}
 
 	
