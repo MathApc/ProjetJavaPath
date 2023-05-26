@@ -2,6 +2,7 @@
 Projet par : Apcher Mathéo, Marwane Laghzaoui, El Badri Maha, Lamdouni Fatima Zahra, Ouad Mouad
 
 How to run the program:
+
 1 Method:
 - open terminal or cmd
 - execute this command:
@@ -17,7 +18,9 @@ java --module-path "{path of the javafx sdk}\lib" --add-modules=javafx.controls,
 - run
 
 How to open the javadoc:
+
 1 Method:
+
 -click on the file index.html - Shortcut
 
 2 Method:
