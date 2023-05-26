@@ -6,6 +6,7 @@ How to run the program:
 - open terminal or cmd
 - execute this command:
 java --module-path "{path of the javafx sdk}\lib" --add-modules=javafx.controls,javafx.fxml,javafx.swing,javafx.base,javafx.graphics,javafx.media,javafx.web -jar {path of the file path.jar}
+
 !! Pay attention to the corrects paths !!
 
 2 Method:
