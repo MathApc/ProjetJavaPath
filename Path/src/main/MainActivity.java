@@ -365,7 +365,7 @@ public class MainActivity extends Application {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			if(!pl.isGameOver() && pl.getNumberBarriere() <= 20) {
+			if(!pl.isGameOver() && pl.getNumberBarriere() < 20) {
 				
 				pl.setCanClickBorder(true);
 				pl.setCanClickBox(false);
